@@ -155,7 +155,7 @@ function gameCompleted() {
   document.getElementById("result").classList.remove("hidden");
 }
 
-// ⭐ Rating logic
+// Rating logic
 function calculateStars() {
   if (moveCount <= 20) return 5;
   if (moveCount <= 30) return 4;
