@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="game-container">
+      <marquee class="text">Memory Game</marquee>
+      <div class="game-info">
+        <div class="sub-text">Time: <span id="timer">0</span>s</div>
+        <div class="sub-text">Moves: <span id="move-counter">0</span></div>
+
+        <button onclick="startGame()">Restart</button>
+      </div>
+      <div class="stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <div id="game"></div>
+    </div>
+
+    <div id="result" class="hidden">
+      <h2>Congratulations!</h2>
+      <p>You completed the game in <span id="final-time">0</span> seconds!</p>
+      <p>Total moves: <span id="final-moves">0</span></p>
+
+      <p>Rating: <span id="final-rating"></span></p>
+
+      <button onclick="startGame()">Play Again</button>
+    </div>
+
+    <script src="Index.js"></script>
+  </body>
+</html>
