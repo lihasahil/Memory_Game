@@ -26,7 +26,7 @@ Check out the live version here: [Play Now](https://memory-game-lac-psi.vercel.a
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **HTML5** – Structure of the game
 - **CSS3** – Styling and animations
