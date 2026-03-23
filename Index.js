@@ -21,34 +21,36 @@ let gameStarted = false;
 // Initialize the game when page loads
 window.onload = startGame;
 
-function startGame() {
-  resetGame();
+function preloadImages() {
+  values.forEach((val) => {
+    const img = new Image();
+    img.src = `assets/${val}`;
+  });
+}
 
+function startGame() {
+  preloadImages(); 
+  resetGame();
   const doubled = [...values, ...values];
   const shuffled = doubled.sort(() => 0.5 - Math.random());
-
   cards = shuffled.map((val, index) => ({
     id: index,
     value: val,
     isFlipped: false,
     isMatched: false,
   }));
-
   updateGameInfo();
   renderBoard();
 }
 
 function resetGame() {
   if (timerInterval) clearInterval(timerInterval);
-
   flippedCards = [];
   moveCount = 0;
   timer = 0;
   lockBoard = false;
   gameStarted = false;
-
   document.getElementById("result").classList.add("hidden");
-
   const overlay = document.querySelector(".overlay");
   if (overlay) overlay.classList.remove("show-overlay");
 }
@@ -73,12 +75,11 @@ function renderBoard() {
       cardElement.classList.add("matched");
     }
 
-    if (card.isFlipped || card.isMatched) {
-      const img = document.createElement("img");
-      img.src = `assets/${card.value}`;
-      img.alt = "card image";
-      cardElement.appendChild(img);
-    }
+    const img = document.createElement("img");
+    img.src = `assets/${card.value}`;
+    img.alt = "card image";
+    img.style.visibility = card.isFlipped || card.isMatched ? "visible" : "hidden";
+    cardElement.appendChild(img);
 
     cardElement.addEventListener("click", () => flipCard(index));
     game.appendChild(cardElement);
@@ -116,7 +117,6 @@ function startTimer() {
 
 function checkMatch() {
   const [card1, card2] = flippedCards;
-
   if (card1.value === card2.value) {
     card1.isMatched = true;
     card2.isMatched = true;
@@ -124,11 +124,9 @@ function checkMatch() {
     card1.isFlipped = false;
     card2.isFlipped = false;
   }
-
   flippedCards = [];
   lockBoard = false;
   renderBoard();
-
   if (cards.every((card) => card.isMatched)) {
     gameCompleted();
   }
@@ -136,26 +134,21 @@ function checkMatch() {
 
 function gameCompleted() {
   clearInterval(timerInterval);
-
   let overlay = document.querySelector(".overlay");
   if (!overlay) {
     overlay = document.createElement("div");
     overlay.className = "overlay";
     document.body.appendChild(overlay);
   }
-
   overlay.classList.add("show-overlay");
   document.getElementById("final-time").textContent = timer;
   document.getElementById("final-moves").textContent = moveCount;
-
   const stars = calculateStars();
   const starsHTML = generateStarsHTML(stars);
   document.getElementById("final-rating").innerHTML = starsHTML;
-
   document.getElementById("result").classList.remove("hidden");
 }
 
-// Rating logic
 function calculateStars() {
   if (moveCount <= 20) return 5;
   if (moveCount <= 30) return 4;
